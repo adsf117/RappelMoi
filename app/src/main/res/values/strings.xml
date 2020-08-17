@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RappelMoi</string>
+    <string name="completed_text_checkbox">Completed</string>
 </resources>
