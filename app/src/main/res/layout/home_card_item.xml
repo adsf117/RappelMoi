@@ -19,7 +19,7 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Acetaminofen"
+            tools:text="Acetaminophen"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
         <TextView
-            android:id="@+id/tv_details"
+            android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Pain Killers"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Every 8 hours"
-            app:layout_constraintStart_toEndOf="@+id/tv_details"
+            app:layout_constraintStart_toEndOf="@+id/tv_description"
             app:layout_constraintTop_toBottomOf="@+id/tv_date"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp" />
@@ -67,7 +67,7 @@
             android:layout_height="match_parent"
             android:checked="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description"
             android:text="@string/completed_text_checkbox"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
