@@ -2,5 +2,10 @@
     <string name="app_name">RappelMoi</string>
     <string name="completed_text_checkbox">Completed</string>
     <string name="name_hint">Name</string>
-    <string name="date">date</string>
+    <string name="error_message_empty_name">Field required!</string>
+    <string name="error_message_invalid_date">Invalid date!</string>
+
+    <string name="date">Date</string>
+    <string name="description_hint">Description</string>
+
 </resources>
