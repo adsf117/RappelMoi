@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.puzzlebench.rappelmoi.database.EvenDao
 import com.puzzlebench.rappelmoi.database.Event
-import com.puzzlebench.rappelmoi.database.RappelMoiDatabase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
