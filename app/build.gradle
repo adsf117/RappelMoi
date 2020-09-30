@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.puzzlebench.rappelmoi"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -27,6 +27,9 @@ android {
     buildFeatures {
         dataBinding true
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     packagingOptions {
         exclude 'META-INF/atomicfu.kotlin_module'
     }
@@ -41,6 +44,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0'
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:$work_version"
 
 
     def room_version = "2.2.5"
