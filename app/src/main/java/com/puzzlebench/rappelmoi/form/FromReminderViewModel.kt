@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.puzzlebench.rappelmoi.componets.EventHelperAlarmManager
+import com.puzzlebench.rappelmoi.components.EventHelperAlarmManager
 import com.puzzlebench.rappelmoi.database.EvenDao
 import com.puzzlebench.rappelmoi.database.Event
 import kotlinx.coroutines.Dispatchers

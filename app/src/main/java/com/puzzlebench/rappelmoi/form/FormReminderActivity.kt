@@ -15,7 +15,7 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.puzzlebench.rappelmoi.componets.EventHelperAlarmManager
+import com.puzzlebench.rappelmoi.components.EventHelperAlarmManager
 import com.puzzlebench.rappelmoi.R
 import com.puzzlebench.rappelmoi.database.RappelMoiDatabase
 import kotlinx.android.synthetic.main.activity_form_reminder.*
@@ -44,7 +44,7 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         setContentView(R.layout.activity_form_reminder)
         val dataSource = RappelMoiDatabase.getInstance(this.applicationContext).evenDao
         val alarmHelper =
-            EventHelperAlarmManager(this.application)
+            EventHelperAlarmManager(this.applicationContext)
         val viewModelFactory = FromReminderViewModelFactory(dataSource, alarmHelper)
         viewModel = ViewModelProvider(this, viewModelFactory).get(FromReminderViewModel::class.java)
         val calendar: Calendar = Calendar.getInstance()

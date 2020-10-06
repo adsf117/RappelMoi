@@ -1,4 +1,4 @@
-package com.puzzlebench.rappelmoi.componets
+package com.puzzlebench.rappelmoi.components
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.work.Constraints
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.puzzlebench.rappelmoi.componets.EventWorker.Companion.setEventWorkerData
+import com.puzzlebench.rappelmoi.components.EventWorker.Companion.setEventWorkerData
 
 class EventAlarmReceiver : BroadcastReceiver() {
 
@@ -19,18 +19,14 @@ class EventAlarmReceiver : BroadcastReceiver() {
                 val workerConstraints = Constraints.Builder()
                     .setRequiresBatteryNotLow(true).build()
 
-                val updateSeedDataBaseWorker = OneTimeWorkRequestBuilder<EventWorker>()
+                val eventWorker = OneTimeWorkRequestBuilder<EventWorker>()
                     .setConstraints(workerConstraints)
                     .setInputData(setEventWorkerData(eventId))
                     .build()
 
                 val workManager = WorkManager.getInstance(it)
-                workManager.enqueue(updateSeedDataBaseWorker)
-                Log.d(
-                    EventWorker::class.java.canonicalName,
-                    "AlarmReceiver for eventId : $eventId"
-                )
-
+                workManager.enqueue(eventWorker)
+                Log.d(EventWorker::class.java.canonicalName, "AlarmReceiver for eventId : $eventId")
             }
         }
     }

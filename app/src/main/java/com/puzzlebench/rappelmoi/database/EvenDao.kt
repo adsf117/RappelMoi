@@ -17,6 +17,9 @@ interface EvenDao {
     @Query("SELECT * FROM event_table ORDER BY id ")
     fun getAll(): DataSource.Factory<Int, Event>
 
+    @Query("SELECT * FROM event_table ")
+    suspend fun getAllFeatureEvents(): List<Event>?
+
     @Query("SELECT * FROM event_table WHERE id = :key ")
     suspend fun getEventBy(key: Long): Event?
 

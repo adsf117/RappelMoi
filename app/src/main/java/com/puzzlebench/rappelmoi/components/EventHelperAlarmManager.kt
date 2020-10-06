@@ -1,25 +1,24 @@
-package com.puzzlebench.rappelmoi.componets
+package com.puzzlebench.rappelmoi.components
 
 import android.app.AlarmManager
-import android.app.Application
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import com.puzzlebench.rappelmoi.componets.EventAlarmReceiver.Companion.EVENT_ALARM_CODE
+import com.puzzlebench.rappelmoi.components.EventAlarmReceiver.Companion.EVENT_ALARM_CODE
 import com.puzzlebench.rappelmoi.database.Event
 
-class EventHelperAlarmManager constructor(private val application: Application) {
+class EventHelperAlarmManager constructor(private val context: Context) {
     private val alarmManager: AlarmManager =
-        application.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
     private lateinit var intent: PendingIntent
 
     fun setEventAlarm(event: Event) {
-        intent = Intent(application, EventAlarmReceiver::class.java).let { intent ->
+        intent = Intent(context, EventAlarmReceiver::class.java).let { intent ->
             PendingIntent.getBroadcast(
-                application,
+                context,
                 EVENT_ALARM_CODE,
                 intent.putExtra(EventAlarmReceiver.EXTRA_EVENT_ID, event.id),
                 PendingIntent.FLAG_UPDATE_CURRENT

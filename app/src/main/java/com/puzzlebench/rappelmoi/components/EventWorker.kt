@@ -1,4 +1,4 @@
-package com.puzzlebench.rappelmoi.componets
+package com.puzzlebench.rappelmoi.components
 
 import android.app.NotificationManager
 import android.content.Context

@@ -19,9 +19,16 @@
         <activity android:name=".form.FormReminderActivity" />
 
         <receiver
-            android:name=".componets.EventAlarmReceiver"
+            android:name=".components.EventAlarmReceiver"
             android:enabled="true"
             android:exported="false" />
+
+        <receiver android:name=".components.BootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
