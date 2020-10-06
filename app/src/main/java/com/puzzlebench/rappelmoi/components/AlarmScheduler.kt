@@ -56,9 +56,10 @@ private fun scheduleAlarm(
     alarmIntent: PendingIntent?,
     alarmMgr: AlarmManager
 ) {
-    alarmMgr.setRepeating(
+    alarmMgr.setExact(
         AlarmManager.RTC_WAKEUP,
-        event.date, (1000 * 60 * 60 * 24 * 7).toLong(), alarmIntent
+        event.date,
+        alarmIntent
     )
 }
 

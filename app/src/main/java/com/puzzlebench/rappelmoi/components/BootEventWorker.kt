@@ -24,8 +24,4 @@ class BootEventWorker(context: Context, workerParameters: WorkerParameters) :
         withContext(Dispatchers.IO) {
             return@withContext dao.getAllFeatureEvents()
         }
-
-    companion object {
-        const val EXTRA_EVENT_ID = "EXTRA_EVENT_ID"
-    }
 }
