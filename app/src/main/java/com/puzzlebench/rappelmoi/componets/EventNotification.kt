@@ -1,10 +1,11 @@
-package com.puzzlebench.rappelmoi
+package com.puzzlebench.rappelmoi.componets
 
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import com.puzzlebench.rappelmoi.R
 import com.puzzlebench.rappelmoi.database.Event
 import com.puzzlebench.rappelmoi.form.FormReminderActivity
 

@@ -2,7 +2,7 @@ package com.puzzlebench.rappelmoi.form
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.puzzlebench.rappelmoi.EventHelperAlarmManager
+import com.puzzlebench.rappelmoi.componets.EventHelperAlarmManager
 import com.puzzlebench.rappelmoi.database.EvenDao
 
 @Suppress("UNCHECKED_CAST")

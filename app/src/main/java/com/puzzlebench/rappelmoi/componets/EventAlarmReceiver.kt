@@ -1,4 +1,4 @@
-package com.puzzlebench.rappelmoi
+package com.puzzlebench.rappelmoi.componets
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.work.Constraints
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.puzzlebench.rappelmoi.EventWorker.Companion.setEventWorkerData
+import com.puzzlebench.rappelmoi.componets.EventWorker.Companion.setEventWorkerData
 
 class EventAlarmReceiver : BroadcastReceiver() {
 

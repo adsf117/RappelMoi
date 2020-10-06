@@ -1,5 +1,6 @@
 package com.puzzlebench.rappelmoi.database
 
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -13,8 +14,8 @@ interface EvenDao {
     @Update
     fun update(event: Event)
 
-    @Query("SELECT * FROM event_table ")
-    suspend fun getAll(): List<Event>?
+    @Query("SELECT * FROM event_table ORDER BY id ")
+    fun getAll(): DataSource.Factory<Int, Event>
 
     @Query("SELECT * FROM event_table WHERE id = :key ")
     suspend fun getEventBy(key: Long): Event?

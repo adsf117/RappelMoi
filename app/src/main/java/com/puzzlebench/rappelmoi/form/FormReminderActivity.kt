@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -13,7 +15,7 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.puzzlebench.rappelmoi.EventHelperAlarmManager
+import com.puzzlebench.rappelmoi.componets.EventHelperAlarmManager
 import com.puzzlebench.rappelmoi.R
 import com.puzzlebench.rappelmoi.database.RappelMoiDatabase
 import kotlinx.android.synthetic.main.activity_form_reminder.*
@@ -24,6 +26,16 @@ import java.util.*
 class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
 
+    companion object {
+        private const val EXTRA_EVENT_ID = "EXTRA_ID_THEM"
+
+        fun getIntent(context: Context, eventId: Long): Intent {
+            return Intent(context, FormReminderActivity::class.java).putExtra(
+                EXTRA_EVENT_ID,
+                eventId
+            )
+        }
+    }
 
     private lateinit var viewModel: FromReminderViewModel
 
@@ -31,7 +43,8 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form_reminder)
         val dataSource = RappelMoiDatabase.getInstance(this.applicationContext).evenDao
-        val alarmHelper = EventHelperAlarmManager(this.applicationContext)
+        val alarmHelper =
+            EventHelperAlarmManager(this.application)
         val viewModelFactory = FromReminderViewModelFactory(dataSource, alarmHelper)
         viewModel = ViewModelProvider(this, viewModelFactory).get(FromReminderViewModel::class.java)
         val calendar: Calendar = Calendar.getInstance()
@@ -62,6 +75,7 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         }
 
     }
+
     private fun createNotificationChannel(channelId: String, channelName: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
@@ -76,7 +90,8 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = Color.RED
             notificationChannel.enableVibration(true)
-            notificationChannel.description = getString(R.string.event_notification_channel_description)
+            notificationChannel.description =
+                getString(R.string.event_notification_channel_description)
 
             val notificationManager = getSystemService(
                 NotificationManager::class.java
@@ -85,6 +100,7 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
         }
     }
+
     private fun handleViewState(fromState: FormState) {
         when (fromState) {
             is FormState.ShowEmptyNameError -> {

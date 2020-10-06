@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="event"
+            type="com.puzzlebench.rappelmoi.database.Event" />
+
+        <variable
+            name="clickListener"
+            type="com.puzzlebench.rappelmoi.eventlist.EventListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:onClick="@{() -> clickListener.onClick(event)}">
+
+        <TextView
+            android:id="@+id/name_event_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{event.name}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="name" />
+
+        <TextView
+            android:id="@+id/date_event_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Long.toString(event.date)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_event_item"
+            tools:text="my test" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

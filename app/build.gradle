@@ -24,14 +24,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    buildFeatures {
-        dataBinding true
-    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
     packagingOptions {
         exclude 'META-INF/atomicfu.kotlin_module'
+    }
+    buildFeatures {
+        dataBinding true
     }
 }
 
@@ -46,6 +46,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // Kotlin + coroutines
     implementation "androidx.work:work-runtime-ktx:$work_version"
+    implementation 'androidx.paging:paging-runtime-ktx:2.1.0'
+
+    // Paging
+    implementation "android.arch.paging:runtime:1.0.1"
 
 
     def room_version = "2.2.5"
