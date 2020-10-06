@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.puzzlebench.rappelmoi.components.EventHelperAlarmManager
 import com.puzzlebench.rappelmoi.database.EvenDao
 import com.puzzlebench.rappelmoi.database.Event
 import kotlinx.coroutines.Dispatchers
@@ -12,10 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class FromReminderViewModel constructor(
-    private val evenDao: EvenDao,
-    private val eventHelperAlarmManager: EventHelperAlarmManager
-) : ViewModel() {
+class FromReminderViewModel constructor(private val evenDao: EvenDao) : ViewModel() {
 
     private val viewStateMutableLiveData = MutableLiveData<FormState>()
 
@@ -42,8 +38,7 @@ class FromReminderViewModel constructor(
                 date = getCalendarSelected(date, dateTime).timeInMillis
             )
             val savedEvent = event.copy(id = saveEvent(event))
-            viewStateMutableLiveData.value = FormState.SaveSuccessFull
-            eventHelperAlarmManager.setEventAlarm(savedEvent)
+            viewStateMutableLiveData.value = FormState.SaveSuccessFull(savedEvent)
         }
 
     }

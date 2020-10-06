@@ -14,9 +14,8 @@ class BootEventWorker(context: Context, workerParameters: WorkerParameters) :
 
     override suspend fun doWork(): Result {
         val dataSource = RappelMoiDatabase.getInstance(this.applicationContext).evenDao
-        val alarmHelper = EventHelperAlarmManager(this.applicationContext)
         getAll(dataSource)?.forEach {
-            alarmHelper.setEventAlarm(it)
+            AlarmScheduler.scheduleAlarmsForReminder(this.applicationContext, it)
         }
         return Result.success()
     }

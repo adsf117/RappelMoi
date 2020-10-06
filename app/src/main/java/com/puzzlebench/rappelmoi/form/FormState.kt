@@ -1,8 +1,11 @@
 package com.puzzlebench.rappelmoi.form
 
-sealed class FormState {
+
+import com.puzzlebench.rappelmoi.database.Event
+
+sealed class FormState  {
     object ShowEmptyNameError : FormState()
     object ShowInvalidDateError : FormState()
-    object SaveSuccessFull : FormState()
+    class SaveSuccessFull(val event: Event) : FormState()
     class ShowMessage(val message: String) : FormState()
 }

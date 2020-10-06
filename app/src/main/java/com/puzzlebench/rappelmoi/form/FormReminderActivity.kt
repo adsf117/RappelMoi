@@ -15,8 +15,8 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.puzzlebench.rappelmoi.components.EventHelperAlarmManager
 import com.puzzlebench.rappelmoi.R
+import com.puzzlebench.rappelmoi.components.AlarmScheduler
 import com.puzzlebench.rappelmoi.database.RappelMoiDatabase
 import kotlinx.android.synthetic.main.activity_form_reminder.*
 import kotlinx.android.synthetic.main.activity_form_reminder.tv_date
@@ -43,9 +43,7 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form_reminder)
         val dataSource = RappelMoiDatabase.getInstance(this.applicationContext).evenDao
-        val alarmHelper =
-            EventHelperAlarmManager(this.applicationContext)
-        val viewModelFactory = FromReminderViewModelFactory(dataSource, alarmHelper)
+        val viewModelFactory = FromReminderViewModelFactory(dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(FromReminderViewModel::class.java)
         val calendar: Calendar = Calendar.getInstance()
         tv_date.text =
@@ -65,7 +63,6 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
             showTimePickerDialog()
         }
         btn_save.setOnClickListener {
-
             viewModel.saveEvent(
                 et_name.text.toString()
                 , et_description.text.toString(),
@@ -114,6 +111,7 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
                 ).show()
             }
             is FormState.SaveSuccessFull -> {
+                AlarmScheduler.scheduleAlarmsForReminder(this.applicationContext, fromState.event)
                 tf_name.error = ""
             }
             is FormState.ShowMessage -> {

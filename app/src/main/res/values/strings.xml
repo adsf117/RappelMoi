@@ -12,6 +12,15 @@
     <string name="event_notification_channel_name" translatable="true">Event</string>
 
     <string name="event_notification_channel_description">rappelMoi Channel</string>
+    <string-array name="days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
 
 
 </resources>
