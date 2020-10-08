@@ -33,7 +33,7 @@
             android:id="@+id/date_event_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Long.toString(event.date)}"
+            app:showDate="@{event}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name_event_item"
             tools:text="my test" />

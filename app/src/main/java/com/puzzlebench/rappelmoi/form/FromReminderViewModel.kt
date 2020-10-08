@@ -49,7 +49,7 @@ class FromReminderViewModel constructor(private val evenDao: EvenDao) : ViewMode
 
 
     private fun getCalendarSelected(date: String, dateTime: String): Calendar {
-        val dateSelected = date.split("-")
+        val dateSelected = date.split(" ")
         val dateTimeSelected = dateTime.split(":")
         return Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()

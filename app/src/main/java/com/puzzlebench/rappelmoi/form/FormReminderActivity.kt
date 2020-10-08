@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.puzzlebench.rappelmoi.R
 import com.puzzlebench.rappelmoi.components.AlarmScheduler
 import com.puzzlebench.rappelmoi.database.RappelMoiDatabase
+import com.puzzlebench.rappelmoi.formatDate
 import kotlinx.android.synthetic.main.activity_form_reminder.*
 import kotlinx.android.synthetic.main.activity_form_reminder.tv_date
 import java.util.*
@@ -46,10 +47,8 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         val viewModelFactory = FromReminderViewModelFactory(dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(FromReminderViewModel::class.java)
         val calendar: Calendar = Calendar.getInstance()
-        tv_date.text =
-            "${calendar.get(Calendar.DAY_OF_MONTH) - 1}-${calendar.get(Calendar.MONTH)}-${calendar.get(
-                Calendar.MONTH
-            )}"
+        tv_date.text =calendar.timeInMillis.formatDate("MM dd yyyy")
+        tv_time.text = calendar.timeInMillis.formatDate("hh:mm")
         viewModel.viewStateLiveData.observe(::getLifecycle, ::handleViewState)
 
         createNotificationChannel(
@@ -146,7 +145,7 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, day: Int) {
-        tv_date.text = "$day-$month-$year"
+        tv_date.text = "$day $month $year"
     }
 
     override fun onTimeSet(view: TimePicker?, hour: Int, minute: Int) {
