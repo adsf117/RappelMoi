@@ -178,7 +178,7 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
     private fun showTimePickerDialog() {
         val calendar: Calendar = Calendar.getInstance()
         val timePickerDialog = TimePickerDialog(
-            this, this, calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
+            this, this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
             true
         )
         timePickerDialog.show()
