@@ -30,12 +30,21 @@
             tools:text="name" />
 
         <TextView
+            android:id="@+id/description_event_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{event.description}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name_event_item"
+            tools:text="description" />
+
+        <TextView
             android:id="@+id/date_event_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:showDate="@{event}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name_event_item"
-            tools:text="my test" />
+            app:layout_constraintTop_toBottomOf="@+id/description_event_item"
+            tools:text="Sep 12 2020 12:00 pm" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

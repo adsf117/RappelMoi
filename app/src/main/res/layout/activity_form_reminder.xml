@@ -49,15 +49,14 @@
         android:text="@string/date"
         android:drawableStart="@drawable/ic_baseline_access_time"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tf_description"
-        android:drawableLeft="@drawable/ic_baseline_access_time" />
+        app:layout_constraintTop_toBottomOf="@+id/tf_description" />
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/general_margin"
-        android:text="Sat. Sep 12 , 2020"
+        tools:text="Sat. Sep 12 , 2020"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_date_time" />
 
@@ -66,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/general_margin"
-        android:text="17:30"
+        tools:text="17:30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
@@ -75,7 +74,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/general_margin"
-        android:text="Save"
+        tools:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/options_sp" />
+
+    <Spinner
+        android:id="@+id/options_sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_time" />

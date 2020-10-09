@@ -18,7 +18,7 @@ class FromReminderViewModel constructor(private val evenDao: EvenDao) : ViewMode
     val viewStateLiveData: LiveData<FormState>
         get() = viewStateMutableLiveData
 
-    fun saveEvent(name: String, description: String, date: String, dateTime: String) {
+    fun saveEvent(name: String, description: String, date: String, dateTime: String, type: String) {
         if (name.isEmpty()) {
             viewStateMutableLiveData.value =
                 FormState.ShowEmptyNameError
@@ -34,13 +34,16 @@ class FromReminderViewModel constructor(private val evenDao: EvenDao) : ViewMode
         viewModelScope.launch {
             val event = Event(
                 name = name,
-                description = description,
+                description = "$description $type",
                 date = getCalendarSelected(date, dateTime).timeInMillis
             )
             val savedEvent = event.copy(id = saveEvent(event))
-            viewStateMutableLiveData.value = FormState.SaveSuccessFull(savedEvent)
+            if (type == "Alarm") {
+                viewStateMutableLiveData.value = FormState.SaveSuccessFull(savedEvent)
+            } else {
+                viewStateMutableLiveData.value = FormState.SaveSuccessFullUseWorker(savedEvent)
+            }
         }
-
     }
 
     private suspend fun saveEvent(event: Event) = withContext(Dispatchers.IO) {

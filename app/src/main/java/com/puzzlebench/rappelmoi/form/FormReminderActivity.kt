@@ -10,13 +10,13 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.widget.DatePicker
-import android.widget.TimePicker
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.puzzlebench.rappelmoi.R
 import com.puzzlebench.rappelmoi.components.AlarmScheduler
+import com.puzzlebench.rappelmoi.database.Event
 import com.puzzlebench.rappelmoi.database.RappelMoiDatabase
 import com.puzzlebench.rappelmoi.formatDate
 import kotlinx.android.synthetic.main.activity_form_reminder.*
@@ -66,11 +66,25 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
                 et_name.text.toString()
                 , et_description.text.toString(),
                 tv_date.text.toString(),
-                tv_time.text.toString()
+                tv_time.text.toString(),
+                options_sp.selectedItem.toString()
             )
         }
+        initSelector()
 
     }
+
+    private fun initSelector() {
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.options,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            options_sp.adapter = adapter
+        }
+    }
+
 
     private fun createNotificationChannel(channelId: String, channelName: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -97,29 +111,37 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         }
     }
 
-    private fun handleViewState(fromState: FormState) {
-        when (fromState) {
-            is FormState.ShowEmptyNameError -> {
-                tf_name.error = getString(R.string.error_message_empty_name)
-            }
-            is FormState.ShowInvalidDateError -> {
-                Toast.makeText(
-                    this,
-                    getString(R.string.error_message_invalid_date),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            is FormState.SaveSuccessFull -> {
-                AlarmScheduler.scheduleAlarmsForReminder(this.applicationContext, fromState.event)
-                tf_name.error = ""
-            }
-            is FormState.ShowMessage -> {
-                Toast.makeText(this, fromState.message, Toast.LENGTH_SHORT).show()
-            }
+    private fun handleViewState(fromState: FormState) = when (fromState) {
+        is FormState.ShowEmptyNameError -> {
+            tf_name.error = getString(R.string.error_message_empty_name)
+        }
+        is FormState.ShowInvalidDateError -> {
+            Toast.makeText(
+                this,
+                getString(R.string.error_message_invalid_date),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        is FormState.SaveSuccessFull -> {
+            AlarmScheduler.scheduleAlarmsForReminder(this.applicationContext, fromState.event)
+            tf_name.error = ""
+        }
+        is FormState.SaveSuccessFullUseWorker -> {
+            useWork(fromState.event)
+            tf_name.error = ""
+        }
+        is FormState.ShowMessage -> {
+            Toast.makeText(
+                this,
+                fromState.message,
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
+    private fun useWork(event:Event){
 
 
+    }
     private fun showDatePickerDialog() {
         val calendar: Calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
