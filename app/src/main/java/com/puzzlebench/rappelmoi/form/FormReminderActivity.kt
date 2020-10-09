@@ -190,7 +190,6 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
     private fun showTime(dateTime: Long) {
         tv_time.text = dateTime.formatDate("HH:mm")
-
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, day: Int) {

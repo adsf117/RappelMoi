@@ -56,8 +56,8 @@ class FromReminderViewModel constructor(private val evenDao: EvenDao) : ViewMode
         val dateTimeSelected = dateTime.split(":")
         return Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
-            set(Calendar.DAY_OF_MONTH, dateSelected[0].toInt() - 1)
-            set(Calendar.MONTH, dateSelected[1].toInt())
+            set(Calendar.DAY_OF_MONTH, dateSelected[1].toInt())
+            set(Calendar.MONTH, dateSelected[0].toInt()-1)
             set(Calendar.YEAR, dateSelected[2].toInt())
             set(Calendar.HOUR_OF_DAY, dateTimeSelected[0].toInt())
             set(Calendar.MINUTE, dateTimeSelected[1].toInt())
