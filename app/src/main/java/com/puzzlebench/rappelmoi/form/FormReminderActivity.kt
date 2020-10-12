@@ -10,6 +10,8 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -48,6 +50,9 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form_reminder)
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val dataSource = RappelMoiDatabase.getInstance(this.applicationContext).evenDao
         val viewModelFactory = FromReminderViewModelFactory(dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(FromReminderViewModel::class.java)
@@ -68,17 +73,33 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         tv_time.setOnClickListener {
             showTimePickerDialog()
         }
-        btn_save.setOnClickListener {
-            viewModel.saveEvent(
-                et_name.text.toString()
-                , et_description.text.toString(),
-                tv_date.text.toString(),
-                tv_time.text.toString(),
-                options_sp.selectedItem.toString()
-            )
-        }
         initSelector()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.form_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_save -> {
+                viewModel.saveEvent(
+                    et_name.text.toString()
+                    , et_description.text.toString(),
+                    tv_date.text.toString(),
+                    tv_time.text.toString(),
+                    options_sp.selectedItem.toString()
+                )
+                return true
+            }
+            R.id.action_delete -> {
+                Toast.makeText(this.applicationContext, "deleted", Toast.LENGTH_SHORT).show()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initSelector() {

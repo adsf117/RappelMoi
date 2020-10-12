@@ -11,6 +11,10 @@
     <string name="event_notification_channel_id" translatable="false">event_channel</string>
     <string name="event_notification_channel_name" translatable="true">Event</string>
 
+    <string name="tool_bar_option_save">Save</string>
+    <string name="tool_bar_option_delete">Delete</string>
+
+
     <string name="event_notification_channel_description">rappelMoi Channel</string>
     <string-array name="days">
         <item>Sunday</item>

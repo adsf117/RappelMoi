@@ -6,7 +6,7 @@ import com.puzzlebench.rappelmoi.database.Event
 
 @BindingAdapter("showDate")
 fun TextView.showDate(item: Event?) {
-    item?.let {
-        text = item.date.formatDate("HH:mm, MMM dd yyyy")
+    item?.let { event ->
+        text = event.date.formatDate("HH:mm, MMM dd yyyy")
     }
 }
