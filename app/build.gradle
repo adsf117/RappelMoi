@@ -60,10 +60,17 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
-
-
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    // Espresso
+// Core library
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+// AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation "androidx.test.ext:junit:1.1.1"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.2'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    androidTestImplementation "io.mockk:mockk-android:1.10.2"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.3.0"
 
 }

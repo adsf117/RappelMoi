@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+const val DB_NAME = "RappelMoiDatabase.db"
 @Database(entities = [Event::class], version = 3, exportSchema = false)
 abstract class RappelMoiDatabase : RoomDatabase() {
 
@@ -22,7 +23,7 @@ abstract class RappelMoiDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         RappelMoiDatabase::class.java,
-                        "RappelMoiDatabase"
+                        DB_NAME
                     )
                         .fallbackToDestructiveMigration()
                         .build()

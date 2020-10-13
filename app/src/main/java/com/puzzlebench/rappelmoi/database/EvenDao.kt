@@ -9,7 +9,7 @@ import androidx.room.Update
 @Dao
 interface EvenDao {
     @Insert
-    suspend fun insert(event: Event) : Long
+    suspend fun insert(event: Event): Long
 
     @Update
     fun update(event: Event)
