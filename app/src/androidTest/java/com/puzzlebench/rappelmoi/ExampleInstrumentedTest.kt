@@ -1,12 +1,13 @@
 package com.puzzlebench.rappelmoi
 
-import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-
-import androidx.paging.PagedList
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
+import android.content.Intent
+import androidx.paging.PagingData
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
 import androidx.test.filters.MediumTest
@@ -16,6 +17,9 @@ import com.puzzlebench.rappelmoi.database.Event
 import com.puzzlebench.rappelmoi.di.ServiceLocator
 import com.puzzlebench.rappelmoi.eventlist.MainActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -33,14 +37,17 @@ class ExampleInstrumentedTest {
 
     @get:Rule // unresolved reference here
     val activityRule = ActivityTestRule(MainActivity::class.java)
+
     @Before
     fun createDB() {
         ServiceLocator.fetchEvents = FakeAndroidTestRepositoryEvents()
+        activityRule.launchActivity(Intent())
     }
+
     @Test
     fun useAppContext() {
         Thread.sleep(5000)
-        /*
+
         val itemPosition = 1
         Espresso.onView(withId(R.id.items_list))
             .perform(
@@ -48,7 +55,7 @@ class ExampleInstrumentedTest {
                     ViewMatchers.hasDescendant(ViewMatchers.withText("${NAME_EVENT}$itemPosition")),
                     ViewActions.click()
                 )
-            )*/
+            )
 
     }
 
@@ -58,19 +65,12 @@ class ExampleInstrumentedTest {
 const val NAME_EVENT = "Event"
 
 class FakeAndroidTestRepositoryEvents : FetchEvents {
-
-    private val allEventsMutable: MutableLiveData<PagedList<Event>> = MutableLiveData()
-    private val allEventsLiveData: LiveData<PagedList<Event>>
-        get() = allEventsMutable
-
-    override fun invoke(): LiveData<PagedList<Event>> {
-        allEventsMutable.value = getDummyListBusiness().asPagedList()
-        return allEventsLiveData
+    override fun invoke(): Flow<PagingData<Event>> {
+        return flow {
+            emit(PagingData.from(getDummyListBusiness()))
+            delay(10)
+        }
     }
-
-    override suspend fun invokes(): List<Event> =
-        getDummyListBusiness()
-
 
     private fun getDummyListBusiness(): List<
             Event> = (1..20).map {
@@ -78,9 +78,9 @@ class FakeAndroidTestRepositoryEvents : FetchEvents {
     }
 
     private fun getDummyBusiness(seed: String) = Event(
-        seed.toLong(),
+        seed.toInt(),
         "${NAME_EVENT}$seed",
-        "${"DummyBusinessFactory.IMAGE_URL"}$seed",
+        "${"DummyBusinessFactory"}$seed",
         seed.toLong()
     )
 }

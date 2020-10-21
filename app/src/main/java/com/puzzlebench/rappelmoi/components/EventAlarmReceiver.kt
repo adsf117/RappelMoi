@@ -14,7 +14,7 @@ class EventAlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
 
         context?.let {
-            intent?.getLongExtra(EXTRA_EVENT_ID, 0)?.let { eventId ->
+            intent?.getIntExtra(EXTRA_EVENT_ID, 0)?.let { eventId ->
 
                 val workerConstraints = Constraints.Builder()
                     .setRequiresBatteryNotLow(true).build()

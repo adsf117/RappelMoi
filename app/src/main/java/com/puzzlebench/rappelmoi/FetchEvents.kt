@@ -1,11 +1,10 @@
 package com.puzzlebench.rappelmoi
 
-import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
+
+import androidx.paging.PagingData
 import com.puzzlebench.rappelmoi.database.Event
+import kotlinx.coroutines.flow.Flow
 
 interface FetchEvents {
-    fun invoke(): LiveData<PagedList<Event>>
-
-    suspend fun invokes(): List<Event>?
+    fun invoke(): Flow<PagingData<Event>>
 }

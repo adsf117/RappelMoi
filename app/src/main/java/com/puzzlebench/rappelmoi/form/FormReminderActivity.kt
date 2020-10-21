@@ -9,10 +9,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.text.format.DateFormat
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -27,7 +25,6 @@ import com.puzzlebench.rappelmoi.database.RappelMoiDatabase
 import com.puzzlebench.rappelmoi.formatDate
 import kotlinx.android.synthetic.main.activity_form_reminder.*
 import kotlinx.android.synthetic.main.activity_form_reminder.tv_date
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -37,7 +34,7 @@ class FormReminderActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
     companion object {
         private const val EXTRA_EVENT_ID = "EXTRA_ID_THEM"
 
-        fun getIntent(context: Context, eventId: Long): Intent {
+        fun getIntent(context: Context, eventId: Int): Intent {
             return Intent(context, FormReminderActivity::class.java).putExtra(
                 EXTRA_EVENT_ID,
                 eventId

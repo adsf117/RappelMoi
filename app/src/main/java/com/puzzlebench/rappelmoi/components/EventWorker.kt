@@ -19,7 +19,7 @@ class EventWorker(context: Context, workerParameters: WorkerParameters) :
 
     override suspend fun doWork(): Result {
 
-        val eventId = inputData.getLong(EXTRA_EVENT_ID, 0)
+        val eventId = inputData.getInt(EXTRA_EVENT_ID, 0)
         val notificationManager = ContextCompat.getSystemService(
             applicationContext,
             NotificationManager::class.java
@@ -41,13 +41,13 @@ class EventWorker(context: Context, workerParameters: WorkerParameters) :
         return Result.success()
     }
 
-    private suspend fun getEventBy(eventId: Long, dao: EvenDao): Event? =
+    private suspend fun getEventBy(eventId: Int, dao: EvenDao): Event? =
         withContext(Dispatchers.IO) {
             return@withContext dao.getEventBy(eventId)
         }
 
     companion object {
         const val EXTRA_EVENT_ID = "EXTRA_EVENT_ID"
-        fun setEventWorkerData(eventId: Long): Data = workDataOf(EXTRA_EVENT_ID to eventId)
+        fun setEventWorkerData(eventId: Int): Data = workDataOf(EXTRA_EVENT_ID to eventId)
     }
 }

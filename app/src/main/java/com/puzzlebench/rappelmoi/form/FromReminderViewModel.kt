@@ -37,7 +37,7 @@ class FromReminderViewModel constructor(private val evenDao: EvenDao) : ViewMode
                 description = "$description $type",
                 date = getCalendarSelected(date, dateTime).timeInMillis
             )
-            val savedEvent = event.copy(id = saveEvent(event))
+            val savedEvent = event.copy(id = saveEvent(event).toInt())
             if (type == "Alarm") {
                 viewStateMutableLiveData.value = FormState.SaveSuccessFull(savedEvent)
             } else {

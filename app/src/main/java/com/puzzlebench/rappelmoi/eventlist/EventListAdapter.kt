@@ -2,14 +2,14 @@ package com.puzzlebench.rappelmoi.eventlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.puzzlebench.rappelmoi.database.Event
 import com.puzzlebench.rappelmoi.databinding.EventItemBinding
 
 class EventListAdapter(private val clickListener: EventListener) :
-    PagedListAdapter<Event, RecyclerView.ViewHolder>(EventDiffCallback()) {
+    PagingDataAdapter<Event, RecyclerView.ViewHolder>(EventDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return EventViewHolder(
@@ -51,6 +51,6 @@ private class EventDiffCallback : DiffUtil.ItemCallback<Event>() {
     }
 }
 
-class EventListener(val clickListener: (eventId: Long) -> Unit) {
+class EventListener(val clickListener: (eventId: Int) -> Unit) {
     fun onClick(event: Event) = clickListener(event.id)
 }

@@ -10,12 +10,12 @@ import com.puzzlebench.rappelmoi.database.Event
 import com.puzzlebench.rappelmoi.form.FormReminderActivity
 
 // Notification ID.
-private val NOTIFICATION_ID = 1
+private const val NOTIFICATION_ID = 1
 
 /**
  * Builds and delivers the notification.
  *
- * @param context, activity context.
+ * @param applicationContext, event: Event.
  */
 fun NotificationManager.showNotification(applicationContext: Context, event: Event) {
 

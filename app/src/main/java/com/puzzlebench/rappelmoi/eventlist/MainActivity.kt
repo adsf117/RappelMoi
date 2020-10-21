@@ -2,19 +2,22 @@ package com.puzzlebench.rappelmoi.eventlist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.puzzlebench.rappelmoi.R
 import com.puzzlebench.rappelmoi.components.RappelMoiApplication
-import com.puzzlebench.rappelmoi.database.Event
 import com.puzzlebench.rappelmoi.databinding.ActivityMainBinding
 import com.puzzlebench.rappelmoi.form.FormReminderActivity
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var viewModel: EventListViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(
@@ -35,19 +38,15 @@ class MainActivity : AppCompatActivity() {
         binding.navigateToFrom.setOnClickListener {
             goToForm()
         }
-        viewModel.getEvents()
-        viewModel.allEvents.observe(this, Observer(eventAdapter::submitList))
-        viewModel.allEventsList.observe(::getLifecycle, ::show)
-
-
+        // Subscribe the adapter to the ViewModel, so the items in the adapter are refreshed
+        // when the list changes
+        lifecycleScope.launch {
+            @OptIn(ExperimentalCoroutinesApi::class)
+            viewModel.allEvents.collectLatest { eventAdapter.submitData(it) }
+        }
     }
 
-    private fun show(events: List<Event>) {
-        if (!events.isNullOrEmpty())
-            Toast.makeText(this.applicationContext, events.first().name, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun goToForm(eventId: Long = 0) {
+    private fun goToForm(eventId: Int = 0) {
         startActivity(FormReminderActivity.getIntent(applicationContext, eventId))
     }
 }
